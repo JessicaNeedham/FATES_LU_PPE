@@ -81,7 +81,7 @@ use_fates_potentialveg=.false.
 fates_lu_transition_logic=1
 fluh_timeseries='/cluster/shared/noresm/inputdata/LU_data_CMIP7/LUH2_states_transitions_management.timeseries_ne16_hist_steadystate_1850_2025-10-24_cdf5.nc'
 flandusepftdat='/cluster/shared/noresm/inputdata/LU_data_CMIP7/fates_landuse_pft_map_to_surfdata_ne16np4_251024_cdf5.nc'
-fates_spitfire_mode=1
+fates_spitfire_mode=4
 hist_empty_htapes=.true.
 hist_fincl1='FCO2', 'FATES_GPP_LU', 'FATES_DISTURBANCE_RATE_MATRIX_LULU', 'FATES_TRANSITION_MATRIX_LULU', 'FATES_BURNEDAREA_LU', 
 'FATES_VEGC_LU', 'FATES_PATCHAREA_LU', 'FATES_NPP_LU', 'FATES_DISTURBANCE_RATE_LOGGING', 
