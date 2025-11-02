@@ -23,7 +23,7 @@ n_unique_params = len(param_ranges_full['Parameter'].unique())
 param_names = param_ranges_full['Parameter'].unique()
 
 # Load latest API parameter file
-input_fname = 'fates_params_api.40.0.0_14pft_c250627_noresm_v21.nc'
+input_fname = 'fates_params_default.nc'
 
 # For each parameter loop through and create a new parameter file with only that parameter changed - min and max
 # If it is a PFT parameter change all PFTs together
@@ -39,8 +39,8 @@ for i in range(0,n_unique_params):
                  'fates_landuse_logging_mechanical_frac', 'fates_landuse_logging_dbhmax_infra']): 
         continue 
     
-    fout_min = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_api.40.0.0_14pft_c250807_noresm_v250812__noresm_v25a_' + param_names[i] + '_min.nc'
-    fout_max = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_api.40.0.0_14pft_c250807_noresm_v250812__noresm_v25a_' + param_names[i] + '_max.nc'
+    fout_min = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_LU_PPE_' + param_names[i] + '_min.nc'
+    fout_max = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_LU_PPE_' + param_names[i] + '_max.nc'
 
     shutil.copy(input_fname, fout_min)
     shutil.copy(input_fname, fout_max)
@@ -120,8 +120,8 @@ for i in range(0,n_unique_params):
         dbhmin_minval = tmp_df['Min'].iloc[0]
         dbhmin_maxval = tmp_df['Max'].iloc[0]
 
-        fout_min = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_api.40.0.0_14pft_c250807_noresm_v250812__noresm_v25a_fates_landuse_logging_dbh_min.nc'
-        fout_max = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_api.40.0.0_14pft_c250807_noresm_v250812__noresm_v25a_fates_landuse_logging_dbh_max.nc'
+        fout_min = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_LU_PPE_fates_landuse_logging_dbh_min.nc'
+        fout_max = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_LU_PPE_fates_landuse_logging_dbh_max.nc'
 
         shutil.copy(input_fname, fout_min)
         shutil.copy(input_fname, fout_max)
@@ -149,8 +149,8 @@ for i in range(0,n_unique_params):
         coll_under_frac_minval = tmp_df['Min'].iloc[0]
         coll_under_frac_maxval = tmp_df['Max'].iloc[0]
 
-        fout_min = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_api.40.0.0_14pft_c250807_noresm_v250812__noresm_v25a_fates_landuse_logging_collateral_min.nc'
-        fout_max = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_api.40.0.0_14pft_c250807_noresm_v250812__noresm_v25a_fates_landuse_logging_collateral_max.nc'
+        fout_min = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_LU_PPE_fates_landuse_logging_collateral_min.nc'
+        fout_max = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_LU_PPE_fates_landuse_logging_collateral_max.nc'
 
         shutil.copy(input_fname, fout_min)
         shutil.copy(input_fname, fout_max)
@@ -186,8 +186,8 @@ for i in range(0,n_unique_params):
         dbhmax_infra_minval = tmp_df['Min'].iloc[0]
         dbhmax_infra_maxval = tmp_df['Max'].iloc[0]
 
-        fout_min = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_api.40.0.0_14pft_c250807_noresm_v250812__noresm_v25a_fates_landuse_logging_mechanical_min.nc'
-        fout_max = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_api.40.0.0_14pft_c250807_noresm_v250812__noresm_v25a_fates_landuse_logging_mechanical_max.nc'
+        fout_min = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_LU_PPE_fates_landuse_logging_mechanical_min.nc'
+        fout_max = '/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_LU_PPE_fates_landuse_logging_mechanical_max.nc'
 
         shutil.copy(input_fname, fout_min)
         shutil.copy(input_fname, fout_max)

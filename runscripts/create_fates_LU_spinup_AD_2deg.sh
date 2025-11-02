@@ -9,7 +9,7 @@ export USER='jessica'
 export workpath='/cluster/work/users/jessica'
 export paramdir='/cluster/home/jessica/NCSrevise/paramfiles'
 
-export TAG='noresm-fates_AD_spinup_LU'
+export TAG='noresm-fates_AD_spinup_LU_develtest'
 export CASEROOT=$workpath/ncsrevise_runs
 export CIMEROOT=$workpath/noresm-ncsrevise/CTSM/cime/scripts
 
@@ -30,11 +30,11 @@ rm -rf ${CASE_NAME}
 
 cd ${CASE_NAME}
  
-./xmlchange STOP_N=100
+./xmlchange STOP_N=1
 ./xmlchange STOP_OPTION=nyears
-./xmlchange REST_N=50
+./xmlchange REST_N=1
 ./xmlchange REST_OPTION=nyears
-./xmlchange RESUBMIT=1
+./xmlchange RESUBMIT=0
 ./xmlchange DEBUG=FALSE
 
 ./xmlchange RUN_STARTDATE=0001-01-01
@@ -45,13 +45,13 @@ cd ${CASE_NAME}
 ./xmlchange DATM_PRESAERO=clim_1850
 
 # For real runs
-./xmlchange --subgroup case.run JOB_WALLCLOCK_TIME=24:00:00
-./xmlchange --subgroup case.st_archive JOB_WALLCLOCK_TIME=00:30:00
+#./xmlchange --subgroup case.run JOB_WALLCLOCK_TIME=24:00:00
+#./xmlchange --subgroup case.st_archive JOB_WALLCLOCK_TIME=00:30:00
 
 # For debugging
-# ./xmlchange JOB_WALLCLOCK_TIME=00:29:00
-# ./xmlchange JOB_QUEUE=devel
-# ./xmlchange NTASKS=128
+./xmlchange JOB_WALLCLOCK_TIME=00:29:00
+./xmlchange JOB_QUEUE=devel
+./xmlchange NTASKS=128
 
 
 ./xmlchange RUNDIR=${CASE_NAME}/run
@@ -59,8 +59,8 @@ cd ${CASE_NAME}
 
 
 cat >>  user_nl_clm <<EOF
-fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/fates_LU_PPE_basefile.nc'
-paramfile='/cluster/shared/noresm/inputdata/lnd/clm2/paramdata/ctsm60_params.200905_v25u.nc'
+fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/fates_params_default.nc'
+paramfile='/cluster/shared/noresm/inputdata/lnd/clm2/paramdata/ctsm60_params.5.3.045_noresm_v14_c251031.nc'
 use_fates_sp=.false.
 use_fates_nocomp=.true.
 use_fates_fixed_biogeog=.true.
