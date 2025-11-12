@@ -17,21 +17,14 @@ for dir in */; do
     ./xmlchange REST_N=31
     ./xmlchange REST_OPTION=nyears
     ./xmlchange RESUBMIT=1
-    ./xmlchange DEBUG=FALSE
-
-    ./xmlchange RUN_STARTDATE=1901-01-01
-    ./xmlchange CLM_ACCELERATED_SPINUP=off
     ./xmlchange DATM_YR_START=1901
     ./xmlchange DATM_YR_END=2023
     ./xmlchange DATM_YR_ALIGN=1901
-    ./xmlchange CLM_CO2_TYPE=diagnostic
-    ./xmlchange DATM_CO2_TSERIES=20tr
-    ./xmlchange CCSM_BGC=CO2A
-    ./xmlchange DATM_PRESAERO=hist
 
 
     # resubmit the run
     ./xmlchange CONTINUE_RUN=TRUE
+    ./case.submit
     # return to parent directory
     cd ..
 done
