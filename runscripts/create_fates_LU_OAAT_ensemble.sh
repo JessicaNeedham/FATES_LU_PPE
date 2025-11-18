@@ -96,6 +96,12 @@ hist_fincl1='FCO2', 'FATES_GPP_LU', 'FATES_DISTURBANCE_RATE_MATRIX_LULU', 'FATES
 
 EOF
 
+    cat >> user_nl_datm_streams <<EOF
+co2tseries.20tr:datafiles=/cluster/work/users/kjetisaa/Trendy_2025_forcing/CO2field/fco2_datm_global_simyr_1700-2024_TRENDY_c250625.nc
+co2tseries.20tr:year_last=2024
+EOF
+
+    
     ./case.setup
     ./case.submit
 
