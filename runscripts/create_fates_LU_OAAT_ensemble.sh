@@ -31,7 +31,7 @@ run_elm_fates(){
     rm -rf ${CASE_NAME}
 
     # CREATE THE CASE
-    ./create_newcase --case=${CASE_NAME} --res=${RES} --compset=${COMPSET} --mach=${MACH} --project=${PROJECT} --run-unsupported
+    ./create_newcase --case=${CASE_NAME} --res=${RES} --compset=${COMPSET} --mach=${MACH} --project=${PROJECT} --run-unsupported --pecount L
 
     cd ${CASE_NAME}
 
@@ -57,17 +57,19 @@ run_elm_fates(){
     ./xmlchange --subgroup case.run JOB_WALLCLOCK_TIME=24:00:00
     ./xmlchange --subgroup case.st_archive JOB_WALLCLOCK_TIME=00:30:00
 
-    ./xmlchange EXEROOT=
+    ./xmlchange EXEROOT=/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-ne16-LU-PPE-AD-spinup.N1048fbece-Fab73a7eb7.2026-01-06/bld
     ./xmlchange BUILD_COMPLETE=TRUE
     
     ./xmlchange RUNDIR=${CASE_NAME}/run
+
+    # turn on Megan
+    ./xmlchange CLM_BLDNML_OPTS="-bgc fates -megan"
 
     cat >>  user_nl_clm <<EOF
 do_transient_lakes=.false.
 do_transient_urban=.false.
 finidat=''
-fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_api.40.0.0_14pft_c250807_noresm_v250812__noresm_v25a_fates_${PARAM}_${MINMAX}.nc'
-paramfile='/cluster/shared/noresm/inputdata/lnd/clm2/paramdata/ctsm60_params.200905_v25u.nc'
+fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/OAAT/fates_params_LU_PPE_${PARAM}_${MINMAX}.nc'
 use_fates_sp=.false.
 use_fates_nocomp=.true.
 use_fates_fixed_biogeog=.true.
@@ -79,25 +81,27 @@ use_fates_lupft=.true.
 fates_harvest_mode='luhdata_area'
 use_fates_potentialveg=.false.
 fates_lu_transition_logic=1
-fluh_timeseries='/cluster/shared/noresm/inputdata/LU_data_CMIP7/LUH2_states_transitions_management.timeseries_ne16_hist_steadystate_1850_2025-10-24_cdf5.nc'
-flandusepftdat='/cluster/shared/noresm/inputdata/LU_data_CMIP7/fates_landuse_pft_map_to_surfdata_ne16np4_251024_cdf5.nc'
+fluh_timeseries='/cluster/shared/noresm/inputdata/LU_data_CMIP7/LUH2_timeseries_to_surfdata_ne16np4_251106_cdf5.nc'
+flandusepftdat='/cluster/shared/noresm/inputdata/LU_data_CMIP7/fates_landuse_pft_map_to_surfdata_ne16np4_251106_cdf5.nc'
 fates_spitfire_mode=4
 hist_empty_htapes=.true.
-hist_fincl1='FCO2', 'FATES_GPP_LU', 'FATES_DISTURBANCE_RATE_MATRIX_LULU', 'FATES_TRANSITION_MATRIX_LULU', 'FATES_BURNEDAREA_LU', 
-'FATES_VEGC_LU', 'FATES_PATCHAREA_LU', 'FATES_NPP_LU', 'FATES_DISTURBANCE_RATE_LOGGING', 
-'FATES_VEGC_ABOVEGROUND', 'FATES_VEGC', 'FATES_FRACTION', 'FATES_GPP','FATES_NEP','FATES_AUTORESP', 'FATES_HET_RESP', 'QVEGE',
- 'QVEGT','QSOIL','EFLX_LH_TOT','FSH','FSR', 'FSDS','FSA','FIRE','FLDS','FATES_LAI', 'FATES_VEGC_PF', 'FATES_NPLANT_SZ',
-'FATES_SECONDARY_AREA_ANTHRO_AP','FATES_SECONDARY_AREA_AP','FATES_PRIMARY_AREA_AP','FATES_NPP_LU','FATES_GPP_LU',
-'TSA', 'SNOW', 'TLAI', 'FLDS', 'LAISUN', 'FSH', 'EFLX_LH_TOT', 'H2OSNO', 'FSDS', 'FSR', 'FSA', 'TOTSOMC_1m',
-'DSTFLXT', 'FATES_NPP', 'FATES_LAI','FATES_AREA_PLANTS', 'FATES_LEAFC', 
-'FATES_MORTALITY_CFLUX_CANOPY', 'BTRAN', 'FATES_NEP', 'FSNO', 'FATES_BURNFRAC', 
-'TOTSOILICE', 'TOTSOILLIQ', 'TWS', 'FATES_GRAZING', 'FATES_FIRE_CLOSS', 'TOT_WOODPROC_LOSS', 
-'FATES_HARVEST_WOODPROD_C_FLUX', 'FATES_LUCHANGE_WOODPROD_C_FLUX', 
-
+hist_fincl1='BTRAN', 'DSTFLXT', 'EFLX_LH_TOT', 'FATES_AREA_PLANTS', 'FATES_AUTORESP', 'FATES_BURNEDAREA_LU', 'FATES_BURNFRAC', 'FATES_DISTURBANCE_RATE_LOGGING', 
+'FATES_DISTURBANCE_RATE_MATRIX_LULU', 'FATES_FIRE_CLOSS', 'FATES_FRACTION', 'FATES_GPP', 'FATES_GPP_LU', 'FATES_GRAZING', 'FATES_HET_RESP',
+ 'FATES_LAI', 'FATES_LAI_PF', 'FATES_LEAFC', 'FATES_LITTER_AG_CWD_EL', 'FATES_LITTER_AG_FINE_EL', 'FATES_LITTER_BG_CWD_EL', 'FATES_LITTER_BG_FINE_EL', 'FATES_LUCHANGE_WOODPROD_C_FLUX', 'FATES_MORTALITY_CFLUX_CANOPY', 'FATES_NEP', 'FATES_NPLANT_SZ', 'FATES_NPP', 'FATES_NPP_LU', 'FATES_PATCHAREA_LU',
+ 'FATES_PRIMARY_AREA_AP', 'FATES_SECONDARY_AREA_ANTHRO_AP', 'FATES_SECONDARY_AREA_AP', 'FATES_TRANSITION_MATRIX_LULU', 'FATES_VEGC',
+ 'FATES_VEGC_ABOVEGROUND','FATES_VEGC_ABOVEGROUND_SZ', 'FATES_VEGC_LU', 'FATES_VEGC_PF', 'FCO2', 'FIRE', 'FLDS', 'FSA', 'FSDS',
+ 'FSH', 'FSNO', 'FSR', 'H2OSNO', 'LAISUN', 'PROD100C', 'PROD10C', 'QSOIL', 'QVEGE', 'QVEGT', 'RAIN', 'SNOW', 'TLAI', 'TOTSOILICE', 
+'TOTSOILLIQ', 'TOTSOMC', 'TOTSOMC_1m', 'TSA', 'TWS', 'FATES_MORTALITY_CSTARV_CFLUX_PF', 'FATES_MORTALITY_FIRE_CFLUX_PF',
+ 'FATES_MORTALITY_HYDRAULIC_CFLUX_PF', 'FATES_DDBH_CANOPY_SZ', 'FATES_DDBH_USTORY_SZ', 'FATES_MORTALITY_CANOPY_SZ', 
+'FATES_MORTALITY_USTORY_SZ', 'FATES_MORTALITY_TERMINATION_SZ', 'FATES_MORTALITY_IMPACT_SZ', 'FATES_MORTALITY_CSTARV_SZ',
+ 'FATES_MORTALITY_HYDRAULIC_SZ','FATES_MORTALITY_BACKGROUND_SZ', 'FATES_MORTALITY_SENESCENCE_SZ', 'FATES_MORTALITY_FREEZING_SZ',
+ 'FATES_NPLANT_CANOPY_SZ','FATES_NPLANT_USTORY_SZ', 'FATES_STOREC', 'FATES_SAPWOODC', 'FATES_FROOTC', 'FATES_REPROC',
+'FATES_STRUCTC', 'FATES_STRUCT_ALLOC_CANOPY_SZ','FATES_SAPWOOD_ALLOC_CANOPY_SZ', 'FATES_SEED_ALLOC_CANOPY_SZ', 'FATES_FROOT_ALLOC_CANOPY_SZ', 
+'FATES_STORE_ALLOC_CANOPY_SZ', 'FATES_LEAF_ALLOC_CANOPY_SZ', 'FATES_MEAN_95PCTILE_HEIGHT', 'FATES_RECRUITMENT_PF'
 EOF
 
     cat >> user_nl_datm_streams <<EOF
-co2tseries.20tr:datafiles=/cluster/work/users/kjetisaa/Trendy_2025_forcing/CO2field/fco2_datm_global_simyr_1700-2024_TRENDY_c250625.nc
+co2tseries.20tr:datafiles=/cluster/shared/noresm/inputdata/atm/datm7/CO2/fco2_datm_global_simyr_1750-2024_CMIP6_c251015.nc
 co2tseries.20tr:year_last=2024
 EOF
 
@@ -113,13 +117,15 @@ cd /cluster/home/jessica/NCSrevise/paramfiles/OAAT/
 echo 'number of runs to set up: '
 echo | ls | wc -l
 
-for file in *.nc; do
+files=(./*.nc)
 
+for file in "${files[@]:1:5}"; do
+    
     [[ -f "$file" ]] || continue
 
     fname="$file"
-    # Extract the part after 'v25a_'                                                                             
-    segment="${fname#*v25a_}"
+    # Extract the part after 'PPE_'
+    segment="${fname#*PPE_}"
     # Remove extension                                                                                           
     segment="${segment%.nc}"
     # Split by underscores                                                                                       
@@ -128,7 +134,7 @@ for file in *.nc; do
     if (( n >= 2 )); then
         # key1: all but the last element, joined by underscores                                                  
         param="${arr[@]:0:n-1}"
-        param="${key1// /_}"
+        param="${param// /_}"
         # key2: last element                                                                                     
         minmax="${arr[n-1]}"
         echo "$fname -> $param $minmax"
@@ -137,5 +143,6 @@ for file in *.nc; do
         echo "$fname -> Not matched"
     fi
 
+
 done
-    
+
