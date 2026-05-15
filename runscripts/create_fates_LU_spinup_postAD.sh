@@ -70,9 +70,6 @@ fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/fates_params_LU_PPE_
 use_fates_sp=.false.
 use_fates_nocomp=.true.
 use_fates_fixed_biogeog=.true.
-fates_stomatal_model='medlyn2011'
-fates_radiation_model = 'twostream'
-fates_leafresp_model = 'ryan1991'
 use_fates_luh=.true.
 use_fates_lupft=.true.
 fates_harvest_mode='luhdata_area'
@@ -82,11 +79,10 @@ fluh_timeseries='/cluster/work/users/jessica/trendy_lu_files_2degs/LUH2_states_t
 flandusepftdat='/cluster/work/users/jessica/trendy_lu_files_2degs/fates_landuse_pft_map_to_surfdata_1.9x2.5_250723_cdf5.nc'
 fates_spitfire_mode=4
 hist_empty_htapes=.true.
-hist_fincl1='FCO2', 'FATES_GPP_LU', 'FATES_DISTURBANCE_RATE_MATRIX_LULU', 'FATES_TRANSITION_MATRIX_LULU', 'FATES_BURNEDAREA_LU',
+hist_fincl1='FCO2', 'FATES_GPP_LU', 
 'FATES_VEGC_LU', 'FATES_PATCHAREA_LU', 'FATES_NPP_LU', 'FATES_LUCHANGE_WOODPROD_C_FLUX', 'FATES_DISTURBANCE_RATE_LOGGING',
 'FATES_VEGC_ABOVEGROUND', 'FATES_VEGC', 'FATES_FRACTION', 'FATES_GPP','FATES_NEP','FATES_AUTORESP', 'FATES_HET_RESP', 'QVEGE',
- 'QVEGT','QSOIL','EFLX_LH_TOT','FSH','FSR', 'FSDS','FSA','FIRE','FLDS','FATES_LAI', 'FATES_VEGC_PF', 
-'FATES_SECONDARY_AREA_ANTHRO_AP','FATES_SECONDARY_AREA_AP','FATES_PRIMARY_AREA_AP','FATES_NPP_LU','FATES_GPP_LU'
+ 'QVEGT','QSOIL','EFLX_LH_TOT','FSH','FSR', 'FSDS','FSA','FIRE','FLDS','FATES_LAI', 'FATES_VEGC_PF'
 EOF
 
 ./case.setup
