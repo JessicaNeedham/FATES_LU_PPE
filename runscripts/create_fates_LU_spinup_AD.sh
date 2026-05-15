@@ -76,8 +76,8 @@ use_fates_luh=.true.
 use_fates_lupft=.true.
 fates_harvest_mode='luhdata_area'
 use_fates_potentialveg=.false.
-fluh_timeseries='/cluster/shared/noresm/inputdata/LU_data_CMIP7/LUH2_states_transitions_management.timeseries_ne16_hist_steadystate_1850_2025-11-06_cdf5.nc'
-flandusepftdat='/cluster/shared/noresm/inputdata/LU_data_CMIP7/fates_landuse_pft_map_to_surfdata_ne16np4_251106_cdf5.nc'
+fluh_timeseries='/cluster/work/projects/nn9560k/inputdata/LU_data_CMIP7/LUH3_1850_steadystate_0.9x1.25_c260514.nc'
+flandusepftdat='/cluster/work/projects/nn9560k/inputdata/LU_data_CMIP7/fates_landuse_pft_surfdata_1.9x2.5_c260513.nc'
 hist_empty_htapes=.true.
 hist_fincl1='FCO2', 'FATES_SECONDARY_AREA_ANTHRO_AP','FATES_SECONDARY_AREA_AP','FATES_PRIMARY_AREA_AP','FATES_NPP_LU','FATES_GPP_LU',
 'FATES_VEGC_PF', 'FATES_VEGC_LU', 'FATES_LAI', 'FATES_GPP_PF'
@@ -86,6 +86,3 @@ EOF
 ./case.setup
 ./case.build
 ./case.submit
-
-#fluh_timeseries='/cluster/work/users/jessica/trendy_lu_files_2degs/LUH2_states_transitions_management.timeseries_1.9x2.5_hist_steadystate_1700_2025-07-23_cdf5.nc'
-#flandusepftdat='/cluster/work/users/jessica/trendy_lu_files_2degs/fates_landuse_pft_map_to_surfdata_1.9x2.5_250723_cdf5.nc'
