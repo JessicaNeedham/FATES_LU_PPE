@@ -8,6 +8,9 @@ export PROJECT='nn9560k'
 export USER='jessica'
 export workpath='/cluster/work/users/jessica'
 
+export TAG='noresm-fates-f19-LU-PPE-1901-2024-control'
+export CASEROOT=$workpath/ncsrevise_runs
+export CIMEROOT=$workpath/noresm-lu-pr/CTSM/cime/scripts
 export TAG='noresm-fates-ne16-LU-PPE-1901-2024'
 export CASEROOT=$workpath/ncsrevise_runs
 export CIMEROOT=$workpath/noresm-def/CTSM/cime/scripts
@@ -39,7 +42,7 @@ cd ${CASE_NAME}
 ./xmlchange RUN_STARTDATE=1901-01-01
 ./xmlchange CLM_ACCELERATED_SPINUP=off
 ./xmlchange DATM_YR_START=1901
-./xmlchange DATM_YR_END=2023
+./xmlchange DATM_YR_END=2024
 ./xmlchange DATM_YR_ALIGN=1901
 ./xmlchange CLM_CO2_TYPE=diagnostic
 ./xmlchange DATM_CO2_TSERIES=20tr
@@ -58,7 +61,7 @@ cd ${CASE_NAME}
 #/xmlchange EXEROOT=${CASE_NAME}/bld
 
  ./xmlchange BUILD_COMPLETE=TRUE
- ./xmlchange EXEROOT=/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-ne16-LU-PPE-AD-spinup.2026-04-24/bld
+ ./xmlchange EXEROOT=/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-f19-LU-PPE-AD-spinup.2026-03-27/bld
 
  # turn on megan
  ./xmlchange CLM_BLDNML_OPTS="-bgc fates -megan"
@@ -67,8 +70,8 @@ cat >>  user_nl_clm <<EOF
 do_transient_lakes=.false.
 do_transient_urban=.false.
 irrigate=.false.
-finidat='/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-ne16-LU-PPE-1850-1900.2026-05-02/run/noresm-fates-ne16-LU-PPE-1850-1900.2026-05-02.clm2.r.1901-01-01-00000.nc'
-fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/fates_params_pr52.nc'
+finidat=''
+fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/fates_params_LU_PPE_base_270326.nc'
 use_fates_sp=.false.
 use_fates_nocomp=.true.
 use_fates_fixed_biogeog=.true.

@@ -1,16 +1,16 @@
 #!/bin/bash
 
 export COMPSET='HIST_DATM%CRUJRA2024_CLM60%FATES_SICE_SOCN_SROF_SGLC_SWAV_SESP'
-export RES=ne16pg3_tn14  #f19_g17  #, ne30pg3_tn14, f45_f45_mg37, ne16pg3_tn14
+export RES=f19_g17  #, ne30pg3_tn14, f45_f45_mg37, ne16pg3_tn14
 export MACH='betzy'
 export PROJECT='nn9560k'
 
 export USER='jessica'
 export workpath='/cluster/work/users/jessica'
 
-export TAG='noresm-fates-ne16-LU-PPE-1850-1900'
+export TAG='noresm-fates-f19-LU-PPE-1850-1900-control'
 export CASEROOT=$workpath/ncsrevise_runs
-export CIMEROOT=$workpath/noresm-def/CTSM/cime/scripts
+export CIMEROOT=$workpath/noresm-lu-pr/CTSM/cime/scripts
 
 cd ${CIMEROOT}
 
@@ -59,14 +59,10 @@ cd ${CASE_NAME}
 #./xmlchange EXEROOT=${CASE_NAME}/bld
 
 ./xmlchange BUILD_COMPLETE=TRUE
-./xmlchange EXEROOT=/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-ne16-LU-PPE-AD-spinup.2026-04-24/bld
+./xmlchange EXEROOT=/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-f19-LU-PPE-AD-spinup.2026-03-27/bld
 
 # turn on megan
 ./xmlchange CLM_BLDNML_OPTS="-bgc fates -megan"
-
-
-#flanduse_timeseries='/cluster/shared/noresm/inputdata/lnd/clm2/surfdata_esmf/ctsm5.3.0/landuse.timeseries_1.9x2.5_SSP2-4.5_1850-2100_78pfts_c240908.nc'
-
 
 cat >> user_nl_clm <<EOF
 do_transient_lakes=.false.
@@ -117,7 +113,6 @@ EOF
 #fluh_timeseries='/cluster/work/users/jessica/trendy_lu_files_2degs/LUH2_timeseries_to_surfdata_1.9x2.5_250723_cdf5.nc'
 #flandusepftdat='/cluster/work/users/jessica/trendy_lu_files_2degs/fates_landuse_pft_map_to_surfdata_1.9x2.5_250723_cdf5.nc'
 
-    
 ./case.setup
 #./case.build
 ./case.submit
