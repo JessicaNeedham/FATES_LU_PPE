@@ -3,14 +3,14 @@
 export COMPSET='HIST_DATM%CRUJRA2024_CLM60%FATES_SICE_SOCN_SROF_SGLC_SWAV_SESP'
 export RES=f19_g17  #, ne30pg3_tn14, f45_f45_mg37, ne16pg3_tn14
 export MACH='betzy'
-export PROJECT='nn9560k'
+export PROJECT='nn9188k'
 
 export USER='jessica'
 export workpath='/cluster/work/users/jessica'
 
 export TAG='noresm-fates-f19-LU-PPE-1850-1900-control'
 export CASEROOT=$workpath/ncsrevise_runs
-export CIMEROOT=$workpath/noresm-lu-pr/CTSM/cime/scripts
+export CIMEROOT=$workpath/noresm-beta16/CTSM/cime/scripts
 
 cd ${CIMEROOT}
 
@@ -29,11 +29,11 @@ rm -rf ${CASE_NAME}
 
 cd ${CASE_NAME}
 
-./xmlchange STOP_N=25
+./xmlchange STOP_N=10
 ./xmlchange STOP_OPTION=nyears
-./xmlchange REST_N=25
+./xmlchange REST_N=10
 ./xmlchange REST_OPTION=nyears
-./xmlchange RESUBMIT=1
+./xmlchange RESUBMIT=4
 ./xmlchange DEBUG=FALSE
 
 ./xmlchange RUN_STARTDATE=1851-01-01
@@ -56,10 +56,10 @@ cd ${CASE_NAME}
 #./xmlchange JOB_QUEUE=devel
 
 ./xmlchange RUNDIR=${CASE_NAME}/run
-#./xmlchange EXEROOT=${CASE_NAME}/bld
+./xmlchange EXEROOT=${CASE_NAME}/bld
 
-./xmlchange BUILD_COMPLETE=TRUE
-./xmlchange EXEROOT=/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-f19-LU-PPE-AD-spinup.2026-03-27/bld
+#./xmlchange BUILD_COMPLETE=TRUE
+#./xmlchange EXEROOT=/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-f19-LU-PPE-AD-spinup.2026-03-27/bld
 
 # turn on megan
 ./xmlchange CLM_BLDNML_OPTS="-bgc fates -megan"
@@ -68,19 +68,20 @@ cat >> user_nl_clm <<EOF
 do_transient_lakes=.false.
 do_transient_urban=.false.
 irrigate=.false.
-finidat='/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-ne16_LU-PPE-postAD-spinup.2026-05-01/run/noresm-fates-ne16_LU-PPE-postAD-spinup.2026-05-01.clm2.r.0501-01-01-00000.nc'
-fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/fates_params_pr52.nc'
+finidat='/cluster/work/users/jessica/LU-PPE_files/noresm-fates-f19_LU-PPE-postAD-spinup.2026-05-20.clm2.r.0501-01-01-00000.nc'
+fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/fates_params_noresm_luppe.json'
 use_fates_sp=.false.
 use_fates_nocomp=.true.
 use_fates_fixed_biogeog=.true.
+fates_stomatal_model='medlyn2011'
+fates_lu_transition_logic=1
 use_fates_luh=.true.
 use_fates_lupft=.true.
 fates_harvest_mode='luhdata_area'
 use_fates_potentialveg=.false.
-fluh_timeseries='/cluster/shared/noresm/inputdata/LU_data_CMIP7/LUH2_timeseries_to_surfdata_ne16np4_251106_cdf5.nc'
-flandusepftdat='/cluster/shared/noresm/inputdata/LU_data_CMIP7/fates_landuse_pft_map_to_surfdata_ne16np4_251106_cdf5.nc'
+fluh_timeseries='/cluster/work/users/jessica/LU-PPE_files/LUH3_timeseries_850-2024_surfdata_1.9x2.5_c260514.nc'
+flandusepftdat='/cluster/work/users/jessica/LU-PPE_files/fates_landuse_pft_surfdata_1.9x2.5_c260513.nc'
 fates_spitfire_mode=4
-hist_empty_htapes=.true.
 hist_fincl1=
 'FATES_FRACTION', 'FATES_NOCOMP_PATCHAREA_PF', 
 'FATES_AUTORESP', 'HR', 'FATES_BURNFRAC', 
@@ -106,7 +107,7 @@ hist_fincl1=
 EOF
 
     cat >> user_nl_datm_streams <<EOF
-co2tseries.20tr:datafiles=/cluster/work/users/jessica/ai4pex_inputs/inputs/CO2field/fco2_datm_global_simyr_1700-2024_TRENDY_c250625.nc
+co2tseries.20tr:datafiles=/cluster/work/users/jessica/LU-PPE_files/fco2_datm_global_simyr_1700-2024_TRENDY_c250625.nc
 co2tseries.20tr:year_last=2024
 EOF
 
@@ -114,5 +115,5 @@ EOF
 #flandusepftdat='/cluster/work/users/jessica/trendy_lu_files_2degs/fates_landuse_pft_map_to_surfdata_1.9x2.5_250723_cdf5.nc'
 
 ./case.setup
-#./case.build
+./case.build
 ./case.submit
