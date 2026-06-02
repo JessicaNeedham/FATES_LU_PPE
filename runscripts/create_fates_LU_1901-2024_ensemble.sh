@@ -1,22 +1,22 @@
 #!/bin/bash
 
-run_elm_fates(){
-
+restart_fates(){
+    
     export COMPSET='HIST_DATM%CRUJRA2024_CLM60%FATES_SICE_SOCN_SROF_SGLC_SWAV_SESP'
-    export RES=f19_g17   #, ne30pg3_tn14, f45_f45_mg37, ne16pg3_tn14
+    export RES=f19_g17
     export MACH='betzy'
     export PROJECT='nn9188k'
 
     export USER='jessica'
     export workpath='/cluster/work/users/jessica'
-    
+
     export PARAM=$1
     export MINMAX=$2
     
-    export TAG=noresm-fates_LU_OAAT_${PARAM}_${MINMAX}
+    export TAG=noresm-fates_OAAT_1900-2023_${PARAM}_${MINMAX}
     export CASEROOT=$workpath/ncsrevise_runs/OAAT
     export CIMEROOT=$workpath/noresm-beta16/CTSM/cime/scripts
-
+   
     cd ${CIMEROOT}
 
     export CIME_HASH=`git log -n 1 --pretty=%h`
@@ -24,7 +24,6 @@ run_elm_fates(){
     export FATES_HASH=`(cd src/fates;git log -n 1 --pretty=%h)`
     export GIT_HASH=N${NorESM_CTSM_HASH}-F${FATES_HASH}	
     export CASE_NAME=${CASEROOT}/${TAG}.`date +"%Y-%m-%d"`
-
 
     # REMOVE EXISTING CASE DIRECTORY IF PRESENT 
     rm -rf ${CASE_NAME}
@@ -34,41 +33,39 @@ run_elm_fates(){
 
     cd ${CASE_NAME}
 
-    ./xmlchange STOP_N=10
+    ./xmlchange STOP_N=31
     ./xmlchange STOP_OPTION=nyears
-    ./xmlchange REST_N=10
+    ./xmlchange REST_N=31
     ./xmlchange REST_OPTION=nyears
-    ./xmlchange RESUBMIT=4
+    ./xmlchange RESUBMIT=3
     ./xmlchange DEBUG=FALSE
 
-
-    # Transient CO2, constant early 20th C climate
-    ./xmlchange RUN_STARTDATE=1851-01-01
+    ./xmlchange RUN_STARTDATE=1901-01-01
     ./xmlchange CLM_ACCELERATED_SPINUP=off
     ./xmlchange DATM_YR_START=1901
-    ./xmlchange DATM_YR_END=1920
-    ./xmlchange DATM_YR_ALIGN=1851
-    ./xmlchange DATM_PRESAERO=hist
+    ./xmlchange DATM_YR_END=2023
+    ./xmlchange DATM_YR_ALIGN=1901
     ./xmlchange CLM_CO2_TYPE=diagnostic
     ./xmlchange DATM_CO2_TSERIES=20tr
     ./xmlchange CCSM_BGC=CO2A
+    ./xmlchange DATM_PRESAERO=hist
 
+    # For real runs
     ./xmlchange --subgroup case.run JOB_WALLCLOCK_TIME=24:00:00
     ./xmlchange --subgroup case.st_archive JOB_WALLCLOCK_TIME=00:30:00
 
+    ./xmlchange RUNDIR=${CASE_NAME}/run
     ./xmlchange BUILD_COMPLETE=TRUE
     ./xmlchange EXEROOT=/cluster/work/users/jessica/ncsrevise_runs/noresm-fates-f19-LU-PPE-1850-1900-control.2026-05-28/bld
     
-    ./xmlchange RUNDIR=${CASE_NAME}/run
-
-    # turn on Megan
+    # turn on megan
     ./xmlchange CLM_BLDNML_OPTS="-bgc fates -megan"
 
     cat >>  user_nl_clm <<EOF
 do_transient_lakes=.false.
 do_transient_urban=.false.
 irrigate=.false.
-finidat='/cluster/work/users/jessica/LU-PPE_files/noresm-fates-f19_LU-PPE-postAD-spinup.2026-05-20.clm2.r.0501-01-01-00000.nc'
+finidat='/cluster/work/users/jessica/ncsrevise_runs/OAAT/noresm-fates_LU_OAAT_${PARAM}_${MINMAX}.2026-05-28/run/noresm-fates_LU_OAAT_${PARAM}_${MINMAX}.2026-05-28.clm2.r.1901-01-01-00000.nc'
 fates_paramfile='/cluster/home/jessica/NCSrevise/paramfiles/OAAT_json/fates_params_LU_PPE_${PARAM}_${MINMAX}.json'
 use_fates_sp=.false.
 use_fates_nocomp=.true.
@@ -82,9 +79,8 @@ fates_harvest_mode='luhdata_area'
 use_fates_potentialveg=.false.
 fates_lu_transition_logic=1
 fates_spitfire_mode=4
-fluh_timeseries='/cluster/work/users/jessica/LU-PPE_files/LUH3_timeseries_850-2024_surfdata_1.9x2.5_c260514.nc'
+fluh_timeseries='/cluster/work/users/jessica/LU-PPE_files/LUH3_timeseries_850-2024_surfdata_1.9x2.5_c260514_smallToZero.nc'
 flandusepftdat='/cluster/work/users/jessica/LU-PPE_files/fates_landuse_pft_surfdata_1.9x2.5_c260513.nc'
-fates_spitfire_mode=4
 hist_empty_htapes=.true.
 hist_fincl1='BTRAN', 'DSTFLXT', 'EFLX_LH_TOT', 'FATES_AREA_PLANTS', 'FATES_AUTORESP', 'FATES_BURNEDAREA_LU',
  'FATES_BURNFRAC','FATES_DISTURBANCE_RATE_LOGGING', 'FATES_FIRE_CLOSS',
@@ -100,30 +96,27 @@ hist_fincl1='BTRAN', 'DSTFLXT', 'EFLX_LH_TOT', 'FATES_AREA_PLANTS', 'FATES_AUTOR
  'FATES_MORTALITY_HYDRO_CFLUX_PF',
 'FATES_RECRUITMENT_PF', 'FATES_NPLANT_SZPF', 'FATES_GPP_PF', 'FATES_NPP_PF',
  'FATES_MEAN_95PCTILE_HEIGHT',
-'FATES_NOCOMP_PATCHAREA_PF',
+'FATES_NOCOMP_PATCHAREA_PF'
 EOF
 
     cat >> user_nl_datm_streams <<EOF
-co2tseries.20tr:datafiles=/cluster/work/users/jessica/LU-PPE_files/fco2_datm_global_simyr_1700-2024_TRENDY_c250625.nc
+co2tseries.20tr:datafiles=/cluster/work/users/jessica/ai4pex_inputs/inputs/CO2field/fco2_datm_global_simyr_1700-2024_TRENDY_c250625.nc
 co2tseries.20tr:year_last=2024
+co2tseries.20tr:year_first=1901
+co2tseries.20tr:year_align=1901
 EOF
 
-    
     ./case.setup
     ./case.submit
-
 }
 
-
 cd /cluster/home/jessica/NCSrevise/paramfiles/OAAT_json/
-
 echo 'number of runs to set up: '
 echo | ls | wc -l
 
 files=(./*.json)
 
 i=0
-#for file in "${files[@]:1:3}"; do
 for file in "/cluster/home/jessica/NCSrevise/paramfiles/OAAT_json"/*.json; do
     
     [[ -f "$file" ]] || continue
@@ -143,15 +136,11 @@ for file in "/cluster/home/jessica/NCSrevise/paramfiles/OAAT_json"/*.json; do
         # key2: last element                                                                                     
         minmax="${arr[n-1]}"
         echo "$fname -> $param $minmax"
-	run_elm_fates $param $minmax
+	restart_fates $param $minmax
     else
         echo "$fname -> Not matched"
     fi
 
     ((i += 1))
-#        if [ "$i" -ge 2 ]; then
-#            break
-#        fi
 
 done
-

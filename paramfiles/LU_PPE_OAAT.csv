@@ -13,6 +13,7 @@ fates_landuse_grazing_palatability,unitless 0-1,pft,bcdas,11,,0,Relative intensi
 fates_landuse_grazing_palatability,unitless 0-1,pft,ac3g,12,,0,Relative intensity of leaf grazing/browsing per PFT,1,0.1,1,,,
 fates_landuse_grazing_palatability,unitless 0-1,pft,cc3g,13,,0,Relative intensity of leaf grazing/browsing per PFT,1,0.1,1,,,
 fates_landuse_grazing_palatability,unitless 0-1,pft,c4g,14,,0,Relative intensity of leaf grazing/browsing per PFT,1,0.1,1,,,
+fates_landuse_grazing_palatability,unitless 0-1,pft,crops,15,,0,Relative intensity of leaf grazing/browsing per PFT,1,0.1,1,,,
 fates_landuse_grazing_rate,1/day,lu_class,,0,pr,1,fraction of leaf biomass consumed by grazers per day,0,0,0.005,,,
 fates_landuse_grazing_rate,1/day,lu_class,,0,se,2,fraction of leaf biomass consumed by grazers per day,0,0,0.01,,,
 fates_landuse_grazing_rate,1/day,lu_class,,0,ra,3,fraction of leaf biomass consumed by grazers per day,0,0,0.02,,,
@@ -35,6 +36,7 @@ fates_landuse_luc_frac_burned,fraction  ,pft,bcdas,11,,,fraction of land use cha
 fates_landuse_luc_frac_burned,fraction  ,pft,ac3g,12,,,fraction of land use change-generated and not-exported material that is burned (the remainder goes to litter),0.5,0.25,0.75,,,
 fates_landuse_luc_frac_burned,fraction  ,pft,cc3g,13,,,fraction of land use change-generated and not-exported material that is burned (the remainder goes to litter),0.5,0.25,0.75,,,
 fates_landuse_luc_frac_burned,fraction  ,pft,c4g,14,,,fraction of land use change-generated and not-exported material that is burned (the remainder goes to litter),0.5,0.25,0.75,,,
+fates_landuse_luc_frac_burned,fraction  ,pft,crops,15,,,fraction of land use change-generated and not-exported material that is burned (the remainder goes to litter),0.5,0.25,0.75,,,
 fates_landuse_luc_frac_exported,,pft,bett,1,,,fraction of land use change-generated wood material that is exported to wood product (the remainder is either burned or goes to litter),0.4,0.2,0.6,,,
 fates_landuse_luc_frac_exported,,pft,neet,2,,,fraction of land use change-generated wood material that is exported to wood product (the remainder is either burned or goes to litter),0.4,0.2,0.6,,,
 fates_landuse_luc_frac_exported,,pft,ncdet,3,,,fraction of land use change-generated wood material that is exported to wood product (the remainder is either burned or goes to litter),0.4,0.2,0.6,,,
@@ -49,7 +51,8 @@ fates_landuse_luc_frac_exported,,pft,bcdas,11,,,fraction of land use change-gene
 fates_landuse_luc_frac_exported,,pft,ac3g,12,,,fraction of land use change-generated wood material that is exported to wood product (the remainder is either burned or goes to litter),0,0,0,,,
 fates_landuse_luc_frac_exported,,pft,cc3g,13,,,fraction of land use change-generated wood material that is exported to wood product (the remainder is either burned or goes to litter),0,0,0,,,
 fates_landuse_luc_frac_exported,,pft,c4g,14,,,fraction of land use change-generated wood material that is exported to wood product (the remainder is either burned or goes to litter),0,0,0,,,
-fates_landuse_logging_event_code,unitless,global,,0,,0,Integer code that options how logging events are structured,-30,3,-30,,,Testing daily and annual here 
+fates_landuse_luc_frac_exported,,pft,crops,15,,,fraction of land use change-generated wood material that is exported to wood product (the remainder is either burned or goes to litter),0,0,0,,,
+fates_landuse_logging_event_code,unitless,global,,0,,0,Integer code that options how logging events are structured,-30,4,-30,,,Testing daily and annual here 
 fates_landuse_logging_direct_frac,fraction  ,global,,0,,0,Fraction of stems logged directly per event,1,0.25,1,,,"Test, 0.25 and 1, with all other logging mortality sources 0"
 fates_landuse_logging_collateral_frac,fraction  ,global,,0,,0,Fraction of large stems in upperstory that die from logging collateral damage,0,0,0.1,,,Increase collateral understory and canopy at the same time. For both min and max runs have logging direct frac set to 0.7
 fates_landuse_logging_coll_under_frac,fraction  ,global,,0,,0,Fraction of stems killed in the understory when logging generates disturbance,0,0,0.2,,,Increase collateral understory and canopy at the same time. For both min and max runs have logging direct frac set to 0.7
@@ -69,3 +72,5 @@ fates_landuse_clearing_mortality,fraction  ,pft,bcdas,11,,,Fraction of cohort ki
 fates_landuse_clearing_mortality,fraction  ,pft,ac3g,12,,,Fraction of cohort killed during land use clearing (only applies to rangeland),0,0,1,,,
 fates_landuse_clearing_mortality,fraction  ,pft,cc3g,13,,,Fraction of cohort killed during land use clearing (only applies to rangeland),0,0,1,,,
 fates_landuse_clearing_mortality,fraction  ,pft,c4g,14,,,Fraction of cohort killed during land use clearing (only applies to rangeland),0,0,1,,,
+fates_landuse_clearing_mortality,fraction  ,pft,crops,15,,,Fraction of cohort killed during land use clearing (only applies to rangeland),0,0,1,,,
+fates_mort_disturb_frac,fraction  ,global,,0,,0,fraction of canopy mortality that results in disturbance (i.e. transfer of area from old to new patch),1,0,1,,,
